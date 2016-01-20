@@ -267,7 +267,8 @@ case $host_os in
     QT_INCLUDES=""
     QT_VER=2
     AC_MSG_CHECKING([for Qt headers])
-    paths="$QTDIR/include /usr/local/qt4/include /usr/include/qt4 \
+    paths="$QTDIR/include $QTDIR/include/qt4 \
+      /usr/local/qt4/include /usr/include/qt4 \
       /usr/include /usr/lib/qt/include /usr/X11R6/include/X11/qt4 \
       /usr/X11R6/include/qt4 /usr/X11R6/include /sw/include/qt4 \
       /usr/local/include/qt4"
