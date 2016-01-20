@@ -224,7 +224,7 @@ AC_ARG_WITH(macosx-version-max-allowed,
 
 dnl Platform specific, find libraries, setup compiler flags
 case $host_os in
-  *linux* | *cygwin* | *mingw* | *bsd* )
+  *linux* | *cygwin* | *mingw* | *msys* | *bsd* )
 
     dnl Set Clang
     if test "$CXX -dM -E - < /dev/null | grep __clang__" ; then
