@@ -314,7 +314,7 @@ case $host_os in
       QT_MTS="non-threaded"
     fi
     case $host_os in
-      *mingw*)
+      *mingw* | *msys*)
       QT_LIB="-lQtCore4 -lQtGui4 -lQtXml4 -lQt3Support4 -lQtSvg4 -lQtScript4"
       QT_INC="$QT_INC -DQT_DLL -DUNICODE"
       QT_LDF="$QT_LDF -mwindows"
