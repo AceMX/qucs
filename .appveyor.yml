@@ -28,9 +28,17 @@ build_script:
   # Open dummy file descriptor to fix error: ./configure: line 560: 0: Bad file descriptor
 
   - bash -lc "exec 0</dev/null && cd $APPVEYOR_BUILD_FOLDER/qucs && ./bootstrap"
-  - bash -lc "exec 0</dev/null && cd $APPVEYOR_BUILD_FOLDER/qucs && export QTDIR=/c/msys64/mingw64/ && ./configure"
+  # force g++, somehow it is picking up flags related to clang++
+  - bash -lc "exec 0</dev/null && cd $APPVEYOR_BUILD_FOLDER/qucs && export QTDIR=/c/msys64/mingw64/ && CXX=g++ ./configure"
   - bash -lc "exec 0</dev/null && cd $APPVEYOR_BUILD_FOLDER/qucs && make"
+
+  # Download, build and install ADMS
+  - bash -lc "exec 0</dev/null && wget.exe http://sourceforge.net/projects/mot-adms/files/adms-source/2.3/adms-2.3.4.tar.gz"
+  - bash -lc "exec 0</dev/null && tar xvfz adms-2.3.4.tar.gz"
+  - bash -lc "exec 0</dev/null && cd adms-2.3.4/ && ./configure && make install && cd -"
+  - bash -lc "exec 0</dev/null && admsXml -h"
 
   # Build Qucs-core
   - bash -lc "exec 0</dev/null && cd $APPVEYOR_BUILD_FOLDER/qucs-core && ./bootstrap"
-  - bash -lc "exec 0</dev/null && cd $APPVEYOR_BUILD_FOLDER/qucs-core && ./configure"
+  - bash -lc "exec 0</dev/null && cd $APPVEYOR_BUILD_FOLDER/qucs-core && ./configure --enable-maintainer-mode --with-mkadms=`which admsXml`"
+  - bash -lc "exec 0</dev/null && cd $APPVEYOR_BUILD_FOLDER/qucs-core && make"
