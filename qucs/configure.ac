@@ -62,7 +62,7 @@ AM_CONDITIONAL(COND_LINUX, test x$LINUX = xyes)
 
 dnl Check for Win32.
 case $host_os in
-  *mingw*) WIN32=yes ;;
+  *mingw* | *msys* ) WIN32=yes ;;
   *)       WIN32=no  ;;
 esac
 AM_CONDITIONAL(COND_WIN32, test x$WIN32 = xyes)
@@ -304,7 +304,7 @@ case $host_os in
       QT_INC="$QT_DEF -DQT3_SUPPORT -DQT3_SUPPORT_WARNINGS -DQT_THREAD_SUPPORT -D_REENTRANT"
       [case $host_os in
         *freebsd*) QT_LIB="$QT_LIB -pthread" ;;
-        *mingw*) QT_INC="$QT_INC -mthreads"; QT_LDF="$QT_LDF -mthreads" ;;
+        *mingw* | *msys*) QT_INC="$QT_INC -mthreads"; QT_LDF="$QT_LDF -mthreads" ;;
       esac]
       QT_MTS="multi-threaded"
     else
@@ -757,7 +757,7 @@ dnl AC_LANG(C)
 
 dnl Check for path transformation.
 case $build_os in
-mingw* | cygwin*)
+mingw* | *msys* | cygwin*)
   PATHXFORM="cygpath -w"
   ;;
 *)
